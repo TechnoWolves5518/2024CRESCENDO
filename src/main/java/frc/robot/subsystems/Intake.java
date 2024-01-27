@@ -12,24 +12,24 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 public class Intake extends SubsystemBase {
   
   /** Creates a new Intake. */
-  private CANSparkMax leadMotor;
+  private CANSparkMax intakeMotor;
   private int runSpeed;
 
   // Constructor for the Intake Class.
   // Parameters:
   //  int deviceIDLeadMotor --> CAN bus address for the first motor.
   //  int speed  --> Speed of the lead motor during intake.  During discharge the speed will be -speed.
-  public Intake(int deviceIDLeadMotor, int speed) {
-    this.leadMotor = new CANSparkMax(deviceIDLeadMotor, MotorType.kBrushless);
+  public Intake(int deviceIDIntakeMotor, int speed) {
+    this.intakeMotor = new CANSparkMax(deviceIDIntakeMotor, MotorType.kBrushless);
     this.runSpeed = speed;
   }
   
   public void enableIntake() {
-    leadMotor.set(runSpeed);
+    intakeMotor.set(runSpeed);
   }
   
   public void enableEject() {
-    leadMotor.set(-runSpeed);
+    intakeMotor.set(-runSpeed);
   }
 
   public void off() {
