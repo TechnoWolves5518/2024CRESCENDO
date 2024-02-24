@@ -74,7 +74,7 @@ public class SwerveSubsystem extends SubsystemBase
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try
     {
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
       // Alternative method if you don't want to supply the conversion factor via JSON files.
       // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
     } catch (Exception e)
@@ -136,20 +136,8 @@ public class SwerveSubsystem extends SubsystemBase
    * @param camera {@link PhotonCamera} to communicate with.
    * @return A {@link Command} which will run the alignment.
    */
-  public Command aimAtTarget(PhotonCamera camera)
-  {
-    return run(() -> {
-      PhotonPipelineResult result = camera.getLatestResult();
-      if (result.hasTargets())
-      {
-        drive(getTargetSpeeds(0,
-                              0,
-                              Rotation2d.fromDegrees(result.getBestTarget()
-                                                           .getYaw()))); // Not sure if this will work, more math may be required.
-      }
-    });
-  }
-
+  
+  
   /**
    * Get the path follower with events.
    *
@@ -395,11 +383,12 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @param brake True to set motors to brake mode, false for coast.
    */
+  /* 
   public void setMotorBrake(boolean brake)
   {
     swerveDrive.setMotorIdleMode(brake);
   }
-
+*/
   /**
    * Gets the current yaw angle of the robot, as reported by the swerve pose estimator in the underlying drivebase.
    * Note, this is not the raw gyro reading, this may be corrected from calls to resetOdometry().

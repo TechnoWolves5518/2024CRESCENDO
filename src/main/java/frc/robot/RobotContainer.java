@@ -82,8 +82,7 @@ public class RobotContainer
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> -driverXbox.getRawAxis(2));
 
-    drivebase.setDefaultCommand(
-        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedDirectAngleSim);
+    drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
   }
 
   /**
@@ -121,9 +120,10 @@ public class RobotContainer
   {
     //drivebase.setDefaultCommand();
   }
-
+/* 
   public void setMotorBrake(boolean brake)
   {
     drivebase.setMotorBrake(brake);
   }
+  */
 }
