@@ -18,7 +18,7 @@ public class Climber extends SubsystemBase {
     leftClimber = new CANSparkMax(13, MotorType.kBrushless);
   }
 
-  public static void climb(double speed){
+  public void climb(double speed){
     rightClimber.set(speed);
     leftClimber.follow(rightClimber);
   }

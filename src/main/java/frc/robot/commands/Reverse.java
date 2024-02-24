@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
-public class Climb extends Command {
-  /** Creates a new Climb. */
+public class Reverse extends Command {
+  /** Creates a new Reverse_climb. */
   Climber m_climb;
-  public Climb(Climber m_climb) {
+  public Reverse(Climber m_climb) {
     this.m_climb = m_climb;
     addRequirements(m_climb);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,7 +24,7 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climb.climb(Constants.CLIMB_SPEED);
+    m_climb.climb(-Constants.CLIMB_SPEED);
   }
 
   // Called once the command ends or is interrupted.
