@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -18,8 +17,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Reverse;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.SubShoot;
+import frc.robot.commands.in;
+import frc.robot.commands.outake;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake_subsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -33,6 +38,8 @@ public class RobotContainer
 
   // The robot's subsystems and commands are defined here...
   private final Climber m_climb = new Climber();
+  private final Intake_subsystem m_intake = new Intake_subsystem();
+  private final Shooter m_shot = new Shooter();
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
 
@@ -86,10 +93,14 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    driverXbox.rightBumper().whileTrue(new Reverse (m_climb));
-    driverXbox.leftBumper().whileTrue(new Climb(m_climb));
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    driverXbox.leftBumper().whileTrue(new Reverse (m_climb));
     
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    driverXbox.rightTrigger().whileTrue(new Shoot(m_shot));
+    driverXbox.leftTrigger().whileTrue(new SubShoot(m_shot));
+    driverXbox.pov(0).whileTrue(new in(m_intake));
+    driverXbox.pov(180).whileTrue(new outake(m_intake));
+    driverXbox.rightBumper().whileTrue(new Climb(m_climb));
     driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     driverXbox.b().whileTrue(

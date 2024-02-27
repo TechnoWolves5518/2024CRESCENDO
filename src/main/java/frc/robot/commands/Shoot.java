@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Shooter;
 
-public class Climb extends Command {
-  Climber m_climb;
-  /** Creates a new Climb. */
-  public Climb(Climber m_climb) {
-    this.m_climb = m_climb;
-    addRequirements(m_climb);
+public class Shoot extends Command {
+  /** Creates a new Shoot. */
+  Shooter m_shot;
+  public Shoot(Shooter m_shot) {
+    this.m_shot = m_shot;
+    addRequirements(m_shot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,13 +24,13 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climb.climb(Constants.CLIMB_SPEED);
+    m_shot.shot(Constants.SHOOT_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climb.climb(0);
+    m_shot.shot(0);
   }
 
   // Returns true when the command should end.

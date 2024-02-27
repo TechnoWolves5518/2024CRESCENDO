@@ -10,18 +10,18 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Climber extends SubsystemBase {
-  /** Creates a new Climber. */
-  static CANSparkMax rightClimber;
-  static CANSparkMax leftClimber;
-  public Climber() {
-    rightClimber = new CANSparkMax(Constants.RIGHT_CLIMBER_ID, MotorType.kBrushless);
-    leftClimber = new CANSparkMax(Constants.LEFT_CLIMBER_ID, MotorType.kBrushless);
+public class Shooter extends SubsystemBase {
+  /** Creates a new Shooter. */
+  static CANSparkMax rightShooter;
+  static CANSparkMax leftShooter;
+  public Shooter() {
+    rightShooter = new CANSparkMax(Constants.RIGHT_SHOOTER_ID, MotorType.kBrushless);
+    leftShooter = new CANSparkMax(Constants.LEFT_SHOOTER_ID, MotorType.kBrushless);
   }
 
-  public void climb(double speed){
-    rightClimber.set(speed);
-    leftClimber.follow(rightClimber);
+  public void shot(double speed){
+    rightShooter.set(speed);
+    leftShooter.follow(rightShooter);
   }
 
   @Override

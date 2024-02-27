@@ -26,7 +26,18 @@ public final class Constants
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
   public static final double CLIMB_SPEED = 0.25;
   public static final double SPEED_MOD = 1.0;
+  public static final double INTAKE_SPEED = 0.6;
+  public static final double SHOOT_SPEED = 0.9;
+  public static final double SUBSHOOT_SPEED = 0.25;
 
+
+  //CAN ids:
+  public static final int RIGHT_CLIMBER_ID = 14;
+  public static final int LEFT_CLIMBER_ID = 13;
+  public static final int RIGHT_SHOOTER_ID = 16;
+  public static final int LEFT_SHOOTER_ID = 15;
+  public static final int INTAKE_ID = 17;
+ // Rest of CAN ids are swerve, which is handled by json files
   public static final class AutonConstants
   {
 
@@ -50,4 +61,5 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
 }
