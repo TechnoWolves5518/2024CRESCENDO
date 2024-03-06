@@ -78,7 +78,7 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverXbox.getRightX()*Constants.SPEED_MOD);
+        () -> -driverXbox.getRightX());
 
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);

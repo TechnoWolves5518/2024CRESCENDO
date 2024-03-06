@@ -21,7 +21,7 @@ public class Climber extends SubsystemBase {
 
   public void climb(double speed){
     rightClimber.set(speed);
-    leftClimber.follow(rightClimber);
+    leftClimber.set(-speed);
   }
 
   @Override
