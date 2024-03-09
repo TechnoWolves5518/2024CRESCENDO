@@ -20,8 +20,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shot(double speed){
-    rightShooter.set(speed);
-    leftShooter.follow(rightShooter);
+    rightShooter.set(-speed);
+    leftShooter.set(speed);
   }
 
   @Override

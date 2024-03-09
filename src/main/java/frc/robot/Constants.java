@@ -35,8 +35,8 @@ public final class Constants
   public static final int RIGHT_CLIMBER_ID = 14;
   public static final int LEFT_CLIMBER_ID = 13;
   public static final int RIGHT_SHOOTER_ID = 16;
-  public static final int LEFT_SHOOTER_ID = 15;
-  public static final int INTAKE_ID = 17;
+  public static final int LEFT_SHOOTER_ID = 17;
+  public static final int INTAKE_ID = 15;
  // Rest of CAN ids are swerve, which is handled by json files
   public static final class AutonConstants
   {
