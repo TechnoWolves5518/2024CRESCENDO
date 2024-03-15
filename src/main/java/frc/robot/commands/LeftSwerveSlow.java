@@ -4,34 +4,34 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Intake_subsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class outake extends Command {
-  Intake_subsystem m_intake;
-  /** Creates a new outake. */
-  public outake(Intake_subsystem m_intake) {
-    this.m_intake = m_intake;
-    addRequirements(m_intake);
+public class LeftSwerveSlow extends Command {
+  SwerveSubsystem swerve;
+  /** Creates a new SwereveSlow. */
+  public LeftSwerveSlow(SwerveSubsystem swerve) {
+    this.swerve = swerve;
+    addRequirements(swerve);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.scoop(Constants.OUTTAKE_SPEED);
+    swerve.drive(new Translation2d(0, Constants.SLOW_MODE), 0, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-        m_intake.scoop(0);
+    swerve.drive(new Translation2d(0, 0), 0, true);
   }
 
   // Returns true when the command should end.

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -20,12 +22,13 @@ import swervelib.parser.SwerveParser;
  */
 public class Robot extends TimedRobot
 {
-
+  Thread m_visionThread;
   private static Robot   instance;
   private        Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
+  
   private Timer disabledTimer;
 
   public Robot()
@@ -47,10 +50,22 @@ public class Robot extends TimedRobot
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
+    m_visionThread =
+      new Thread(
+        () -> {
+          UsbCamera camera = CameraServer.startAutomaticCapture();
+          
+          camera.setResolution(160, 120);
+          camera.setExposureManual(95);
+          camera.setFPS(7);
+          camera.setWhiteBalanceManual(5500);
+        }
+      );
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
+    m_visionThread.setDaemon(true);
+    m_visionThread.start();
   }
 
   /**

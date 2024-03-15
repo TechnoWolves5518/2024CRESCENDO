@@ -2,41 +2,53 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.autos;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Intake_subsystem;
+import frc.robot.subsystems.Shooter;
 
-public class outake extends Command {
-  Intake_subsystem m_intake;
-  /** Creates a new outake. */
-  public outake(Intake_subsystem m_intake) {
-    this.m_intake = m_intake;
-    addRequirements(m_intake);
+public class AutoSpeaker extends Command {
+  Shooter m_shot;
+  private double timer;
+  private boolean stop_check;
+  /** Creates a new AutoSpeaker. */
+  public AutoSpeaker(Shooter m_shot) {
+    this.m_shot = m_shot;
+    addRequirements(m_shot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer = 0;
+    stop_check = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.scoop(Constants.OUTTAKE_SPEED);
+    m_shot.shot(Constants.SHOOT_SPEED);
+    timer++;
+    if (timer == 150){
+      stop_check = true;
+    }
+    if (stop_check == true) {
+      m_shot.shot(0);
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-        m_intake.scoop(0);
+    m_shot.shot(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return stop_check;
   }
 }

@@ -9,16 +9,20 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.autos.AutoSelector;
 import frc.robot.commands.Climb;
+import frc.robot.commands.LeftSwerveSlow;
 import frc.robot.commands.Reverse;
+import frc.robot.commands.ReverseSwerveSlow;
+import frc.robot.commands.RightSwerveSlow;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShotReverse;
 import frc.robot.commands.SubShoot;
+import frc.robot.commands.SwerveSlow;
 import frc.robot.commands.in;
 import frc.robot.commands.outake;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
@@ -26,6 +30,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake_subsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
 import java.io.File;
 
 /**
@@ -40,18 +45,19 @@ public class RobotContainer
   private final Climber m_climb = new Climber();
   private final Intake_subsystem m_intake = new Intake_subsystem();
   private final Shooter m_shot = new Shooter();
+  private AutoSelector autoSelector = new AutoSelector(null, m_intake, m_shot);
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
-  final Joystick schmo = new Joystick(1);
-  
+  final CommandXboxController schmo = new CommandXboxController(1);  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer()
   {
+    autoSelector = new AutoSelector(drivebase, m_intake, m_shot);
     // Configure the trigger bindings
     configureBindings();
 
@@ -84,23 +90,22 @@ public class RobotContainer
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
   }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
-   * named factories in {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-   * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
-   * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
-   */
+ 
   private void configureBindings()
   {
-    driverXbox.leftBumper().whileTrue(new Reverse (m_climb));
+    schmo.leftBumper().whileTrue(new Reverse (m_climb));
     
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    driverXbox.rightTrigger().whileTrue(new Shoot(m_shot));
-    driverXbox.leftTrigger().whileTrue(new SubShoot(m_shot));
-    driverXbox.pov(0).whileTrue(new in(m_intake));
-    driverXbox.pov(180).whileTrue(new outake(m_intake));
-    driverXbox.rightBumper().whileTrue(new Climb(m_climb));
+    schmo.rightTrigger().whileTrue(new Shoot(m_shot));
+    schmo.leftTrigger().whileTrue(new SubShoot(m_shot));
+    schmo.pov(0).whileTrue(new ShotReverse(m_shot));
+    schmo.pov(90).whileTrue(new outake(m_intake));
+    schmo.pov(180).whileTrue(new in(m_intake));
+    schmo.rightBumper().whileTrue(new Climb(m_climb));
+    driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
+    driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));
+    driverXbox.pov(180).whileTrue(new ReverseSwerveSlow(drivebase));
+    driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
     driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     driverXbox.b().whileTrue(
@@ -115,10 +120,12 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand()
+  public Command getAutonomousCommand(
+  )
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return autoSelector.getSelected();
+    //return null;
   }
 
   public void setDriveMode()
