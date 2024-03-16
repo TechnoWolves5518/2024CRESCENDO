@@ -27,7 +27,7 @@ import frc.robot.commands.in;
 import frc.robot.commands.outake;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake_subsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
@@ -43,9 +43,9 @@ public class RobotContainer
 
   // The robot's subsystems and commands are defined here...
   private final Climber m_climb = new Climber();
-  private final Intake_subsystem m_intake = new Intake_subsystem();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final Shooter m_shot = new Shooter();
-  private AutoSelector autoSelector = new AutoSelector(null, m_intake, m_shot);
+  private final AutoSelector autoSelector;
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
 

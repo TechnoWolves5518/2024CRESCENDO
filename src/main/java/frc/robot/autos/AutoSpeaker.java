@@ -9,7 +9,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class AutoSpeaker extends Command {
-  Shooter m_shot;
+  private Shooter m_shot;
   private double timer;
   private boolean stop_check;
   /** Creates a new AutoSpeaker. */
@@ -34,9 +34,7 @@ public class AutoSpeaker extends Command {
     if (timer == 150){
       stop_check = true;
     }
-    if (stop_check == true) {
-      m_shot.shot(0);
-    }
+   
 
   }
 

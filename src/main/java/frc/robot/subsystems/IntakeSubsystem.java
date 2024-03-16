@@ -10,10 +10,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake_subsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
   static CANSparkMax intake;
-  public Intake_subsystem() {
+  public IntakeSubsystem() {
     intake = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushless);
   }
 

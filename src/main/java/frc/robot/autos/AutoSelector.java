@@ -7,15 +7,17 @@ package frc.robot.autos;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake_subsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
+
 
 /** Add your docs here. */
 public class AutoSelector {
       private final SendableChooser<Command> chooser = new SendableChooser<>();
 
-      public AutoSelector(SwerveSubsystem swerve, Intake_subsystem intake, Shooter m_shot){
+      public AutoSelector(SwerveSubsystem swerve, IntakeSubsystem intake, Shooter m_shot){
             chooser.setDefaultOption("Test", new SpeakerShot(intake, m_shot));
 
             chooser.addOption("Two Shot", new AutoTwoShot(intake, m_shot, swerve));

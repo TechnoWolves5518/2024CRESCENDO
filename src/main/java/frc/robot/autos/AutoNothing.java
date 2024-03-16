@@ -5,17 +5,12 @@
 package frc.robot.autos;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoIntake extends Command{
-  private IntakeSubsystem m_intake;
-  private double timer;
+public class AutoNothing extends Command {
+  private int timer;
   private boolean stop_check;
-  /** Creates a new AutoIntake. */
-  public AutoIntake(IntakeSubsystem m_intake) {
-    this.m_intake = m_intake;
-    addRequirements(m_intake);
+  /** Creates a new AutoNothing. */
+  public AutoNothing() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,26 +24,17 @@ public class AutoIntake extends Command{
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    timer++;
 
-    if (timer >= 50 & timer < 150){
-        m_intake.scoop(-Constants.INTAKE_SPEED);
-    }
-    else if(timer == 150){
+    if (timer == 50){
       stop_check = true;
     }
 
-    timer++;
-
-
-
-   
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_intake.scoop(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
