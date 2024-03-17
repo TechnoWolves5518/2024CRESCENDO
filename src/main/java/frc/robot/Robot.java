@@ -50,17 +50,7 @@ public class Robot extends TimedRobot
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_visionThread =
-      new Thread(
-        () -> {
-          UsbCamera camera = CameraServer.startAutomaticCapture();
-          
-          camera.setResolution(160, 120);
-          camera.setExposureManual(95);
-          camera.setFPS(7);
-          camera.setWhiteBalanceManual(5500);
-        }
-      );
+    
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
