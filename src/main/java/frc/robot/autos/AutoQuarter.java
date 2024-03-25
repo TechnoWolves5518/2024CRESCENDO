@@ -4,18 +4,21 @@
 
 package frc.robot.autos;
 
+import javax.xml.namespace.QName;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.commands.in;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoSpeaker extends Command {
-  private Shooter m_shot;
-  private double timer;
+public class AutoQuarter extends Command {
+  IntakeSubsystem intake;
+  private int timer;
   private boolean stop_check;
-  /** Creates a new AutoSpeaker. */
-  public AutoSpeaker(Shooter m_shot) {
-    this.m_shot = m_shot;
-    addRequirements(m_shot);
+  /** Creates a new AutoQuarter. */
+  public AutoQuarter(IntakeSubsystem intake) {
+    this.intake = intake;
+    addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,20 +32,17 @@ public class AutoSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shot.shot(Constants.SHOOT_SPEED);
-    timer++;
-    if (timer == 150){
+    intake.scoop(-Constants.INTAKE_SPEED);
+    timer ++;
+    if (timer == 13){
       stop_check = true;
     }
-   
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shot.shot(0);
-
+    intake.scoop(0);
   }
 
   // Returns true when the command should end.

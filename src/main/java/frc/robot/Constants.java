@@ -29,7 +29,7 @@ public final class Constants
   public static final double INTAKE_SPEED = 0.5;
   public static final double OUTTAKE_SPEED = 0.6;
   public static final double SHOOT_SPEED = 1.0;
-  public static final double SUBSHOOT_SPEED = 0.15;
+  public static final double SUBSHOOT_SPEED = 0.1;
 
 
   //CAN ids:

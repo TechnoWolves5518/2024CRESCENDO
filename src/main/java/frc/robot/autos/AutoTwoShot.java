@@ -6,6 +6,7 @@ package frc.robot.autos;
 
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.autos.AutoDriveBase.AutoAltFoward;
 import frc.robot.autos.AutoDriveBase.AutoFoward;
 import frc.robot.autos.AutoDriveBase.AutoReverse;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -25,8 +26,10 @@ public class AutoTwoShot extends SequentialCommandGroup {
     addCommands(
       new SpeakerShot(m_intake, m_shot),
       new FowardIntake(m_swerve, m_intake),
+      new AutoQuarter(m_intake),
       new AutoReverse(m_swerve),
-      new SpeakerShot(m_intake, m_shot)
+      new SpeakerShot(m_intake, m_shot),
+      new AutoAltFoward(m_swerve)
     );
   } 
 }

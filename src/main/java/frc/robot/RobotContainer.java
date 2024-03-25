@@ -98,9 +98,9 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     schmo.rightTrigger().whileTrue(new Shoot(m_shot));
     schmo.leftTrigger().whileTrue(new SubShoot(m_shot));
-    schmo.pov(0).whileTrue(new ShotReverse(m_shot));
-    schmo.pov(90).whileTrue(new outake(m_intake));
-    schmo.pov(180).whileTrue(new in(m_intake));
+    schmo.pov(90).whileTrue(new ShotReverse(m_shot));
+    schmo.pov(180).whileTrue(new outake(m_intake));
+    schmo.pov(0).whileTrue(new in(m_intake));
     schmo.rightBumper().whileTrue(new Climb(m_climb));
     driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
     driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));

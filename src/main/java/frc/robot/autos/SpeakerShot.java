@@ -5,7 +5,6 @@
 package frc.robot.autos;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.in;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 
@@ -19,7 +18,7 @@ public class SpeakerShot extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoIntake(m_intake),
+    new AutoIntake (m_intake),
     new AutoSpeaker(m_shot)
     );
   }

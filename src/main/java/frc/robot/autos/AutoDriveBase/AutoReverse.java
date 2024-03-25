@@ -32,7 +32,7 @@ public class AutoReverse extends Command {
   public void execute() {
     swerve.drive(new Translation2d(-3, 0), 0, true);
     timer++;
-    if (timer == 100){
+    if (timer == 50){
       stop_check = true;
 
     }
@@ -42,6 +42,8 @@ public class AutoReverse extends Command {
   @Override
   public void end(boolean interrupted) {
     swerve.drive(new Translation2d(0, 0), 0, true);
+    System.out.print("Reverse done");
+
   }
 
   // Returns true when the command should end.

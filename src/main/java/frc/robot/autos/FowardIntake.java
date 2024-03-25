@@ -4,10 +4,8 @@
 
 package frc.robot.autos;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.autos.AutoDriveBase.AutoFoward;
-import frc.robot.commands.in;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
@@ -17,10 +15,9 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 public class FowardIntake extends ParallelDeadlineGroup {
   /** Creates a new FowardIntake. */
   public FowardIntake(SwerveSubsystem swerve, IntakeSubsystem intake) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(new AutoFoward(swerve));
-    addCommands(new in(intake));
+    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    super(new AutoFoward(swerve));
+    addCommands(new AutoIn(intake));
   }
 }

@@ -32,7 +32,7 @@ public class AutoFoward extends Command {
   public void execute() {
     swerve.drive(new Translation2d(3, 0), 0, true);
     timer++;
-    if (timer == 100){
+    if (timer == 50){
       stop_check = true;
 
     }
