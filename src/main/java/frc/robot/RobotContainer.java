@@ -96,16 +96,18 @@ public class RobotContainer
     schmo.leftBumper().whileTrue(new Reverse (m_climb));
     
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    schmo.rightTrigger().whileTrue(new Shoot(m_shot));
-    schmo.leftTrigger().whileTrue(new SubShoot(m_shot));
-    schmo.pov(90).whileTrue(new ShotReverse(m_shot));
-    schmo.pov(180).whileTrue(new outake(m_intake));
-    schmo.pov(0).whileTrue(new in(m_intake));
-    schmo.rightBumper().whileTrue(new Climb(m_climb));
+    driverXbox.rightTrigger().whileTrue(new Shoot(m_shot));
+    driverXbox.leftTrigger().whileTrue(new SubShoot(m_shot));
+    driverXbox.pov(90).whileTrue(new ShotReverse(m_shot));
+    driverXbox.pov(180).whileTrue(new outake(m_intake));
+    driverXbox.pov(0).whileTrue(new in(m_intake));
+    driverXbox.rightBumper().whileTrue(new Climb(m_climb));
+    /* 
     driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
     driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));
     driverXbox.pov(180).whileTrue(new ReverseSwerveSlow(drivebase));
     driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
+    */
     driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     driverXbox.b().whileTrue(

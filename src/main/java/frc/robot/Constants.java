@@ -25,7 +25,7 @@ public final class Constants
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
   public static final double CLIMB_SPEED = 0.25;
-  public static final double SLOW_MODE = 1.5;
+  public static final double SLOW_MODE = .65;
   public static final double INTAKE_SPEED = 0.5;
   public static final double OUTTAKE_SPEED = 0.6;
   public static final double SHOOT_SPEED = 1.0;
