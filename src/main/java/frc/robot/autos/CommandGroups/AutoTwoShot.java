@@ -8,7 +8,6 @@ package frc.robot.autos.CommandGroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.autos.AutoQuarter;
 import frc.robot.autos.AutoDriveBase.AutoAltFoward;
-import frc.robot.autos.AutoDriveBase.AutoFoward;
 import frc.robot.autos.AutoDriveBase.AutoReverse;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
