@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.autos.AutoSelector;
+import frc.robot.autos.AutoDriveBase.AutoSpin;
 import frc.robot.commands.Climb;
 import frc.robot.commands.LeftSwerveSlow;
 import frc.robot.commands.Reverse;
@@ -109,7 +110,8 @@ public class RobotContainer
     driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
     */
     driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-    driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+    driverXbox.x().toggleOnTrue(new AutoSpin(drivebase));
+    //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     driverXbox.b().whileTrue(
         Commands.deferredProxy(() -> drivebase.driveToPose(
                                    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
