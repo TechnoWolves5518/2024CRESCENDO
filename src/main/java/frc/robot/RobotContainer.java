@@ -98,10 +98,12 @@ public class RobotContainer
     schmo.pov(180).whileTrue(new outake(m_intake));
     schmo.pov(0).whileTrue(new in(m_intake));
     schmo.rightBumper().whileTrue(new Climb(m_climb));
+    /** 
     driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
     driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));
     driverXbox.pov(180).whileTrue(new ReverseSwerveSlow(drivebase));
     driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
+    */
     driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     driverXbox.b().whileTrue(
