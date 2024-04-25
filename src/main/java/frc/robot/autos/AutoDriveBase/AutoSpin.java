@@ -8,34 +8,23 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class AutoAltFoward extends Command {
+public class AutoSpin extends Command {
   SwerveSubsystem swerve;
-  private double timer;
-  private boolean stop_check;
-  /** Creates a new AutoFoward. */
-  public AutoAltFoward(SwerveSubsystem swerve) {
+  /** Creates a new Spin. */
+  public AutoSpin(SwerveSubsystem swerve) {
     this.swerve = swerve;
     addRequirements(swerve);
-
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    timer = 0;
-    stop_check = false;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerve.drive(new Translation2d(3, 0), 0, true);
-    timer++;
-    if (timer == 100){
-      stop_check = true;
-
-    }
+    swerve.drive(new Translation2d(0, 0), 1, true);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +36,6 @@ public class AutoAltFoward extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return stop_check;
+    return false;
   }
 }

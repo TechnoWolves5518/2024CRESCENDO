@@ -4,10 +4,16 @@
 
 package frc.robot;
 
+import java.net.PortUnreachableException;
+
+import org.photonvision.PhotonCamera;
+
 import com.pathplanner.lib.util.PIDConstants;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import swervelib.SwerveDrive;
 import swervelib.math.Matter;
 
 /**
@@ -39,6 +45,19 @@ public final class Constants
   public static final int LEFT_SHOOTER_ID = 17;
   public static final int INTAKE_ID = 15;
  // Rest of CAN ids are swerve, which is handled by json files
+
+ public static final class CamConstants {
+  public static double xPitch = 0;
+  public static double cameraHeightMeters = Units.inchesToMeters(0); 
+  public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
+  public static int targetangle = 0;
+  public static PhotonCamera cam = new PhotonCamera("Camera1");
+  public static double cameraAngleRadians = Units.degreesToRadians(0); 
+  public static double goalDistanceMeters = Units.feetToMeters(5);
+  public static PIDController driveController = new PIDController(0.4, 0, 0.01);
+
+  
+ }
   public static final class AutonConstants
   {
 
