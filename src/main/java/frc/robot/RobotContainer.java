@@ -85,7 +85,7 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> -MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> -MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverXbox.getRightX());
+        () -> -driverXbox.getRightX()*Constants.SLOW_MODE);
 
 
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
@@ -94,30 +94,28 @@ public class RobotContainer
  
   private void configureBindings()
   {
-    schmo.leftBumper().whileTrue(new Reverse (m_climb));
+      schmo.leftBumper().whileTrue(new Reverse (m_climb));
+      schmo.rightBumper().whileTrue(new Climb(m_climb));
+      schmo.rightTrigger().whileTrue(new Shoot(m_shot));
+      schmo.leftTrigger().whileTrue(new SubShoot(m_shot));
+      schmo.pov(90).whileTrue(new ShotReverse(m_shot));
+      schmo.pov(180).whileTrue(new outake(m_intake));
+      schmo.pov(0).whileTrue(new in(m_intake));
+      driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
+      driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));
+      driverXbox.pov(180).whileTrue(new ReverseSwerveSlow(drivebase));
+      driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
+      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      driverXbox.x().toggleOnTrue(new AutoSpin(drivebase));
+      //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      driverXbox.b().whileTrue(
+          Commands.deferredProxy(() -> drivebase.driveToPose(
+                                    new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+                                ));
+    }
+      
+      // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
     
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    driverXbox.rightTrigger().whileTrue(new Shoot(m_shot));
-    driverXbox.leftTrigger().whileTrue(new SubShoot(m_shot));
-    driverXbox.pov(90).whileTrue(new ShotReverse(m_shot));
-    driverXbox.pov(180).whileTrue(new outake(m_intake));
-    driverXbox.pov(0).whileTrue(new in(m_intake));
-    driverXbox.rightBumper().whileTrue(new Climb(m_climb));
-    /* 
-    driverXbox.pov(0).whileTrue(new SwerveSlow(drivebase));
-    driverXbox.pov(90).whileTrue(new RightSwerveSlow(drivebase));
-    driverXbox.pov(180).whileTrue(new ReverseSwerveSlow(drivebase));
-    driverXbox.pov(270).whileTrue(new LeftSwerveSlow(drivebase));
-    */
-    driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-    driverXbox.x().toggleOnTrue(new AutoSpin(drivebase));
-    //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-    driverXbox.b().whileTrue(
-        Commands.deferredProxy(() -> drivebase.driveToPose(
-                                   new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              ));
-    // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

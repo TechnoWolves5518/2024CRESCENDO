@@ -23,12 +23,12 @@ public final class Constants
 
   public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
-  public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
+  public static final double LOOP_TIME  = .25; //s, 20ms + 110ms sprk max velocity lag
   public static final double CLIMB_SPEED = 0.25;
-  public static final double SLOW_MODE = .65;
+  public static final double SLOW_MODE = .5;
   public static final double INTAKE_SPEED = 0.5;
   public static final double OUTTAKE_SPEED = 0.6;
-  public static final double SHOOT_SPEED = 1.0;
+  public static final double SHOOT_SPEED = .6;
   public static final double SUBSHOOT_SPEED = 0.1;
 
 
@@ -57,10 +57,10 @@ public final class Constants
   {
 
     // Joystick Deadband
-    public static final double LEFT_X_DEADBAND  = 0.1;
-    public static final double LEFT_Y_DEADBAND  = 0.1;
+    public static final double LEFT_X_DEADBAND  = 1;
+    public static final double LEFT_Y_DEADBAND  = 1;
     public static final double RIGHT_X_DEADBAND = 0.1;
-    public static final double TURN_CONSTANT    = 6;
+    public static final double TURN_CONSTANT    = 1;
   }
 
 }
